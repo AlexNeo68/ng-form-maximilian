@@ -8,6 +8,7 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
   title = 'ng-forms-start';
+  suggestedUser: string = 'SuperUser';
   defaultQuestion: string = 'pet';
   answer: string = '';
 
@@ -16,5 +17,11 @@ export class AppComponent {
   @ViewChild('f') signupForm: NgForm;
   onHandleSubmit() {
     console.log(this.signupForm);
+  }
+
+  onSuggestedUser() {
+    this.signupForm.form.patchValue({
+      userData: { username: this.suggestedUser },
+    });
   }
 }

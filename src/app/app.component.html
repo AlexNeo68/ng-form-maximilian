@@ -15,7 +15,11 @@
             />
           </div>
           <p *ngIf="">Incorrect value in username</p>
-          <button class="btn btn-secondary" type="button">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            (click)="onSuggestedUser()"
+          >
             Suggest an Username
           </button>
           <div
