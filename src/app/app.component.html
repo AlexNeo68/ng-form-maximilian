@@ -1,30 +1,84 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form #signupForm="ngForm">
+      <form
+        (submit)="onHandleSubmit()"
+        #signupForm="ngForm"
+        [ngClass]="{ 'was-validated': signupForm.touched }"
+      >
         <div class="mb-3">
           <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email" required email ngModel>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            required
+            email
+            ngModel
+            #email="ngModel"
+          />
+          <div *ngIf="!email.valid && email.touched" class="invalid-feedback">
+            You must set email.
+          </div>
         </div>
         <div class="mb-3">
-          <label for="password" class="form-label">Choose you subscription </label>
-          <select class="form-select">
-            <option [value]="subscription" *ngFor="let subscription of subscriptions">{{ subscription }}</option>
+          <label for="password" class="form-label"
+            >Choose you subscription
+          </label>
+          <select
+            class="form-select"
+            name="subscription"
+            #subscription
+            [ngModel]="selectedSubscription"
+          >
+            <option
+              [value]="subscription"
+              *ngFor="let subscription of subscriptions"
+            >
+              {{ subscription }}
+            </option>
           </select>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password </label>
-          <input type="password" autocomplete="false" class="form-control" required id="password">
+          <input
+            type="password"
+            autocomplete="false"
+            class="form-control"
+            required
+            id="password"
+            ngModel
+            name="password"
+            #password="ngModel"
+          />
+          <div
+            *ngIf="!password.valid && password.touched"
+            class="invalid-feedback"
+          >
+            You must set password.
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary mb-3">Submit</button>
+        <button
+          type="submit"
+          [disabled]="!signupForm.valid"
+          class="btn btn-primary mb-3"
+        >
+          Submit
+        </button>
+        <div
+          *ngIf="!signupForm.valid && signupForm.touched"
+          class="alert alert-danger"
+        >
+          You must set valid form.
+        </div>
       </form>
-      <!-- <div class="invalid-feedback" *ngIf="!signupForm.valid&&signupForm.touched">
-        Please provide a valid zip.
-      </div> -->
     </div>
-    <hr>
-    <div>
-
+    <hr />
+    <div *ngIf="submitted">
+      <p>Email: {{ result.email }}</p>
+      <p>Subscription: {{ result.subscription }}</p>
+      <p>Password: {{ result.password }}</p>
     </div>
   </div>
 </div>
